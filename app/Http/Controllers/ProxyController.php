@@ -44,9 +44,8 @@ class ProxyController extends Controller {
 
 	private function WhiteHost() {
 		return [
-			'115.159.208.124',
 			'cloud.aikamino.cn',
-			'www.baidu.com',
+			'space.bilibili.com',
 		];
 	}
 
