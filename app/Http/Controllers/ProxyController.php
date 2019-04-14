@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Transformers\RawTransformer;
 use Illuminate\Http\Request;
 use GuzzleHttp;
-use App\Log;
 
 class ProxyController extends Controller {
 	function ProxyHttpGet( Request $request, $origin = 'cn' ) {
@@ -13,17 +11,17 @@ class ProxyController extends Controller {
 		! empty( $url = $request->get( 'url' ) ) ?: $this->response->errorNotFound( 'need a url' );
 		preg_match( '/^(?:([A-Za-z]+):)?(\/{0,3})([0-9.\-A-Za-z]+)(?::(\d+))?(?:\/([^?#]*))?(?:\?([^#]*))?(?:#(.*))?$/', $url, $matches ) ?: $this->response->errorNotFound( 'not true url' );
 		in_array( $matches[3], $this->WhiteHost() ) ?: $this->response->errorNotFound( 'cant access this host' );
-
-		if ( $origin != 'cn' ) {
-			@$ProxyServer = array_key_exists( $origin, $this->ProxyServer() ) ? $this->ProxyServer()[ $origin ] : $this->response->errorNotFound( 'no proxy server' );
+		$params = $request->all();
+		unset( $params['url'] );
+		foreach ( $params as $key => $value ) {
+			$url = $url . '&' . $key . '=' . $value;
 		}
 		$client = $this->HttpClient();
 		try {
 			$res = $client->get( $url );
 		} catch ( \Exception $e ) {
-			$this->response->error( $e->getMessage(), $e->getCode() );
+			$this->response->errorNotFound( $e->getMessage() );
 		}
-		header( 'Content-Type: application/json' );
 
 		return $res->getBody();
 	}
@@ -31,7 +29,10 @@ class ProxyController extends Controller {
 	private function HttpClient( $config = [] ) {
 		$default = [
 			'timeout' => 5.0,
-			'verify'  => false
+			'verify'  => false,
+			'headers' => [
+				'User-Agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.71 Safari/537.36',
+			]
 		];
 		foreach ( $config as $value ) {
 			if ( ! in_array( $value, $default ) ) {
@@ -46,6 +47,7 @@ class ProxyController extends Controller {
 		return [
 			'cloud.aikamino.cn',
 			'space.bilibili.com',
+			'www.google.com',
 		];
 	}
 
