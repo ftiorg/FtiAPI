@@ -48,6 +48,7 @@ class ProxyController extends Controller {
 			'cloud.aikamino.cn',
 			'space.bilibili.com',
 			'www.google.com',
+			'i0.hdslb.com',
 		];
 	}
 
