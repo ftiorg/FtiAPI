@@ -33,4 +33,15 @@ $api->version( 'v1', [
 	 */
 	$api->get( 'proxy', 'ProxyController@ProxyHttpGet' );
 	$api->get( 'proxy/{origin}', 'ProxyController@ProxyHttpGet' );
+	/*
+	 * BiliLive API
+	 */
+	$api->get( 'blive/all', 'BliveController@SignAll' );
+	$api->get( 'blive/info', 'BliveController@SignInfo' );
+	$api->get( 'blive/day', 'BliveController@SignInday' );
+	$api->get( 'blive/overview', 'BliveController@SignOverview' );
+	/*
+	 * Study API
+	 */
+	$api->get( 'study/word', 'StudyController@GetWord' );
 } );

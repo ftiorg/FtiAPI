@@ -12,5 +12,5 @@
 */
 
 Route::get('/doc', function () {
-    return view('welcome');
+    return view('document');
 });
