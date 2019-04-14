@@ -72,9 +72,8 @@ class BliveController extends Controller {
 				22 => 0,
 				23 => 0
 			],
-			'SignUserCount' => [
-
-			]
+			'SignUserCount' => [],
+			'SignDayCount'  => []
 		];
 		foreach ( $all as $item ) {
 			if ( ! in_array( $item['uid'], $data['UserList'] ) ) {
@@ -82,8 +81,12 @@ class BliveController extends Controller {
 				$data['UserCount'] ++;
 				$data['SignUserCount'][ $item['uid'] ] = 0;
 			}
+			if ( ! array_key_exists( $item['date'], $data['SignDayCount'] ) ) {
+				$data['SignDayCount'][ $item['date'] ] = 0;
+			}
 			$data['SignUserCount'][ $item['uid'] ] ++;
 			$data['SignTimeCount'][ (int) substr( $item['time'], 0, 2 ) ] ++;
+			$data['SignDayCount'][ $item['date'] ] ++;
 		}
 
 		return $data;
