@@ -23,7 +23,7 @@ class ProxyController extends Controller {
 			$this->response->errorNotFound( $e->getMessage() );
 		}
 
-		return $res->getBody();
+		return response( $res->getBody() )->header( 'Content-Type', $res->getHeader( 'Content-Type' )[0] );
 	}
 
 	private function HttpClient( $config = [] ) {
