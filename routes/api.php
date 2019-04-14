@@ -17,7 +17,10 @@ $api = app( 'Dingo\Api\Routing\Router' );
 
 $api->version( 'v1', [
 	'namespace'  => 'App\Http\Controllers',
-	'middleware' => [ 'log' ]
+	'middleware' => [
+		'log',
+		'cors'
+	]
 ], function ( $api ) {
 	$api->get( 'test', 'TestController@getTest' );
 	/*

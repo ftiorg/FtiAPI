@@ -180,6 +180,7 @@ return [
 		 */
 		Dingo\Api\Provider\LaravelServiceProvider::class,
 		Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
+		Barryvdh\Cors\ServiceProvider::class,
 	],
 
 	/*
