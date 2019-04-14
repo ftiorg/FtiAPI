@@ -19,7 +19,15 @@ $api->version( 'v1', [
 	'namespace'  => 'App\Http\Controllers',
 	'middleware' => [ 'log' ]
 ], function ( $api ) {
-	$api->get( 'get', 'TestController@getTest' );
-	$api->get( 'proxy/get/', 'ProxyController@ProxyHttpGet' );
-	$api->get( 'proxy/get/{url}', 'ProxyController@ProxyHttpGet' );
+	$api->get( 'test', 'TestController@getTest' );
+	/*
+	 * user API 测试用
+	 */
+	$api->get( 'user', 'UserController@index' );
+	$api->get( 'user/{id}', 'UserController@show' );
+	/*
+	 * proxy API 代理访问
+	 */
+	$api->get( 'proxy', 'ProxyController@ProxyHttpGet' );
+	$api->get( 'proxy/{origin}', 'ProxyController@ProxyHttpGet' );
 } );
