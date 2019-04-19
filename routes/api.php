@@ -36,10 +36,12 @@ $api->version( 'v1', [
 	/*
 	 * BiliLive API
 	 */
-	$api->get( 'blive/all', 'BliveController@SignAll' );
+	//$api->get( 'blive/all', 'BliveController@SignAll' );
 	$api->get( 'blive/info', 'BliveController@SignInfo' );
 	$api->get( 'blive/day', 'BliveController@SignInday' );
 	$api->get( 'blive/overview', 'BliveController@SignOverview' );
+	$api->get( 'blive/rank', 'BliveController@SignRank' );
+	$api->get( 'blive/users', 'BliveController@SignUsers' );
 	/*
 	 * Study API
 	 */
