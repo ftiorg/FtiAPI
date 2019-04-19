@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use function GuzzleHttp\Promise\queue;
 use Illuminate\Http\Request;
 use App\BliveSign;
 
@@ -89,6 +90,10 @@ class BliveController extends Controller {
 			$data['SignDayCount'][ $item['date'] ] ++;
 		}
 
+		$data['SignTimeCount'] = $this->RewriteArray( $data['SignTimeCount'] );
+		$data['SignUserCount'] = $this->RewriteArray( $data['SignUserCount'] );
+		$data['SignDayCount']  = $this->RewriteArray( $data['SignDayCount'] );
+
 		return $data;
 	}
 
@@ -100,5 +105,19 @@ class BliveController extends Controller {
 		//$all = $this->SignAll();
 
 		return [];
+	}
+
+	private function RewriteArray( $array ) {
+		/*
+		 * 修改为前端所需要的格式
+		 * @param array $array
+		 * @return array
+		 */
+		$newArray = [];
+		foreach ( $array as $key => $value ) {
+			$newArray[] = [ "key" => $key, "value" => $value ];
+		}
+
+		return $newArray;
 	}
 }
