@@ -42,6 +42,8 @@ $api->version( 'v1', [
 	$api->get( 'blive/overview', 'BliveController@SignOverview' );
 	$api->get( 'blive/rank', 'BliveController@SignRank' );
 	$api->get( 'blive/users', 'BliveController@SignUsers' );
+	$api->get( 'blive/danmu', 'BliveController@DanmuLog' );
+	$api->get( 'blive/gift', 'BliveController@GiftLog' );
 	/*
 	 * Study API
 	 */

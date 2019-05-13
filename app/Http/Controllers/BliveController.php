@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use function GuzzleHttp\Promise\queue;
 use Illuminate\Http\Request;
 use App\BliveSign;
+use App\BliveDanmu;
+use App\BliveGift;
 
 class BliveController extends Controller {
 
@@ -237,5 +239,28 @@ class BliveController extends Controller {
 		}
 
 		return $array;
+	}
+
+	public function DanmuLog( Request $request ) {
+		/*
+		 * 弹幕记录
+		 * @return array
+		 */
+		$all = BliveDanmu::orderBy( 'id', 'desc' )->get();
+		$res = [];
+		foreach ( $all as $id => $item ) {
+			array_push( $res, array( 'name' => $item['name'], 'message' => $item['msg'] ) );
+		}
+
+		return $res;
+
+	}
+
+	public function GiftLog( Request $request ) {
+		/*
+		 * 礼物记录
+		 * @return array
+		 */
+		return BliveGift::all();
 	}
 }
