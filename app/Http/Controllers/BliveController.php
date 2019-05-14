@@ -246,10 +246,21 @@ class BliveController extends Controller {
 		 * 弹幕记录
 		 * @return array
 		 */
-		$all = BliveDanmu::orderBy( 'id', 'desc' )->get();
 		$res = [];
-		foreach ( $all as $id => $item ) {
-			array_push( $res, array( 'name' => $item['name'], 'message' => $item['msg'] ) );
+		foreach (
+			BliveDanmu::orderBy( 'id', $request->get( 'order' ) == 'asc' ? 'asc' : 'desc' )->get( [
+				'uid',
+				'name',
+				'msg',
+				'time'
+			] ) as $id => $item
+		) {
+			array_push( $res, array(
+				'uid'     => $item['uid'],
+				'name'    => $item['name'],
+				'message' => $item['msg'],
+				'time'    => $item['time']
+			) );
 		}
 
 		return $res;
@@ -261,6 +272,18 @@ class BliveController extends Controller {
 		 * 礼物记录
 		 * @return array
 		 */
-		return BliveGift::all();
+
+		$res = [];
+		foreach ( BliveGift::all() as $item ) {
+			array_push( $res, array(
+				'uid'   => $item['uid'],
+				'name'  => $item['name'],
+				'gift'  => $item['gift'],
+				'count' => $item['num'],
+				'time'  => $item['time']
+			) );
+		}
+
+		return $res;
 	}
 }
