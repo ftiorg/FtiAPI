@@ -274,7 +274,15 @@ class BliveController extends Controller {
 		 */
 
 		$res = [];
-		foreach ( BliveGift::all() as $item ) {
+		foreach (
+			BliveGift::orderBy( 'id', $request->get( 'order' ) == 'asc' ? 'asc' : 'desc' )->get( [
+				'uid',
+				'name',
+				'gift',
+				'count',
+				'time'
+			] ) as $item
+		) {
 			array_push( $res, array(
 				'uid'   => $item['uid'],
 				'name'  => $item['name'],
