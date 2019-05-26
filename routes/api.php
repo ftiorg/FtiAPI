@@ -44,6 +44,10 @@ $api->version( 'v1', [
 	$api->get( 'blive/users', 'BliveController@SignUsers' );
 	$api->get( 'blive/danmu', 'BliveController@DanmuLog' );
 	$api->get( 'blive/gift', 'BliveController@GiftLog' );
+	$api->get( 'blive/music/playing', 'BliveController@MusicIsPlaying' );
+	$api->get( 'blive/music/next', 'BliveController@MusicNext' );
+	$api->get( 'blive/music/will', 'BliveController@MusicWillPlay' );
+	$api->get( 'blive/music/add', 'BliveController@MusicAdd' );
 	/*
 	 * Study API
 	 */

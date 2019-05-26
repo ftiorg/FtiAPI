@@ -286,4 +286,63 @@ class BliveController extends Controller {
 
 		return $res;
 	}
+
+	private function MusicPlayerCtrlCore( $param = array() ) {
+		/*
+		 * 点歌机
+		 */
+		$socket = socket_create( env( 'MUSIC_UNIXPATH' ) == null ? AF_INET : AF_UNIX, SOCK_STREAM, SOL_TCP );
+		if ( $socket < 0 ) {
+			$this->response->errorInternal( '初始化客户端失败' );
+		}
+		$conn = env( 'MUSIC_UNIXPATH' ) == null ? socket_connect( $socket, env( 'MUSIC_SOCKETHOST' ), env( 'MUSIC_SOCKETPORT' ) ) : socket_connect( $socket, env( 'MUSIC_UNIXPATH' ) );
+		if ( $conn < 0 ) {
+			$this->response->errorInternal( '连接到服务器失败' );
+		}
+		$send = json_encode( $param );
+		socket_write( $socket, $send, strlen( $send ) );
+		try {
+			$data = json_decode( socket_read( $socket, 10240 ), true )['data'];
+
+			return $data;
+		} catch ( \Exception $e ) {
+			$this->response->errorInternal( '通信错误' );
+
+			return null;
+		}
+	}
+
+	public function MusicIsPlaying( Request $request ) {
+		$data = $this->MusicPlayerCtrlCore( array( 'action' => 'playing' ) );
+		unset( $data['path'] );
+
+		return $data;
+	}
+
+	public function MusicWillPlay( Request $request ) {
+		$data = $this->MusicPlayerCtrlCore( array( 'action' => 'willplay' ) );
+		unset( $data['path'] );
+
+		return $data;
+	}
+
+	public function MusicNext( Request $request ) {
+		$data = $this->MusicPlayerCtrlCore( array( 'action' => 'next' ) );
+		unset( $data['path'] );
+
+		return $data;
+	}
+
+	public function MusicList( Request $request ) {
+
+		$this->response->errorNotFound( '鸽了' );
+	}
+
+	public function MusicAdd( Request $request ) {
+		$request->get( 'id' ) ? $mid = $request->get( 'id' ) : $this->response->errorNotFound( 'need music id' );
+		$data = $this->MusicPlayerCtrlCore( array( 'action' => 'add', 'url' => $mid ) );
+		unset( $data['path'] );
+
+		return $data;
+	}
 }
