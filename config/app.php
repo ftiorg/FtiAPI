@@ -181,6 +181,7 @@ return [
 		Dingo\Api\Provider\LaravelServiceProvider::class,
 		Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
 		Barryvdh\Cors\ServiceProvider::class,
+		Mews\Captcha\CaptchaServiceProvider::class,
 	],
 
 	/*
@@ -232,6 +233,8 @@ return [
 		'Validator'    => Illuminate\Support\Facades\Validator::class,
 		'View'         => Illuminate\Support\Facades\View::class,
 
+		//add
+		'Captcha'      => Mews\Captcha\Facades\Captcha::class,
 	],
 
 ];

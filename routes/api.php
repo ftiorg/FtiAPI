@@ -52,4 +52,9 @@ $api->version( 'v1', [
 	 * Study API
 	 */
 	$api->get( 'study/word', 'StudyController@GetWord' );
+	/*
+	 * Captcha
+	 */
+	$api->get( 'captcha', 'CaptchaController@captcha' );
+	$api->get( 'check', 'CaptchaController@test' );
 } );
