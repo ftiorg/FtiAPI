@@ -56,5 +56,4 @@ $api->version( 'v1', [
 	 * Captcha
 	 */
 	$api->get( 'captcha', 'CaptchaController@captcha' );
-	$api->get( 'check', 'CaptchaController@test' );
 } );
