@@ -9,6 +9,6 @@ class ToolsController extends Controller {
 		/*
 		 * 获取ip
 		 */
-		return 'asd';
+		return array( 'ip' => $_SERVER['REMOTE_ADDR'] );
 	}
 }
