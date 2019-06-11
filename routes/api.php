@@ -56,4 +56,12 @@ $api->version( 'v1', [
 	 * Captcha
 	 */
 	$api->get( 'captcha', 'CaptchaController@captcha' );
+	/*
+	 * notice
+	 */
+	$api->get( 'notice', 'NoticeController@NoticeAdmin' );
+	/*
+	 * tools
+	 */
+	$api->get( 'tools/ip', 'ToolsController@GetIp' );
 } );
