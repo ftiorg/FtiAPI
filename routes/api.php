@@ -60,6 +60,7 @@ $api->version( 'v1', [
 	 * notice
 	 */
 	$api->get( 'notice', 'NoticeController@NoticeAdmin' );
+	$api->get( 'notice/{plat}', 'NoticeController@NoticeAdmin' );
 	/*
 	 * tools
 	 */

@@ -11,6 +11,6 @@
 |
 */
 
-Route::get('/doc', function () {
-    return view('document');
-});
+Route::get( '/doc', function () {
+	return view( 'document' );
+} );
