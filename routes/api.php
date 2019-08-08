@@ -69,6 +69,11 @@ $api->version('v1', [
      * sign
      */
     $api->post('sign/add', 'SignController@NewSign');
-    $api->get('sign/today', 'SignController@RankToday');
-    $api->get('sign/detial', 'SignController@SignDetial');
+    $api->get('sign/today', 'SignController@TodayRank');
+    $api->get('sign/history', 'SignController@SignHistory');
+    $api->post('sign/detail', 'SignController@TodayDetail');
+    /*
+     * qqapp
+     */
+    $api->post('qqapp/getid', 'QqappController@GetOpenId');
 });

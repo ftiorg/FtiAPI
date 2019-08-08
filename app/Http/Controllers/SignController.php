@@ -47,7 +47,17 @@ class SignController extends Controller
         }
     }
 
-    public function RankToday()
+    public function TodayDetail(Request $request)
+    {
+        $detail = [];
+        $detail['isSigned'] = DailySign::where(['date' => date('Y-m-d'), 'userid' => $request->post('uid')])->count() == 0 ? false : true;
+        $detail['myRank'] = $detail['isSigned'] ? DailySign::where(['date' => date('Y-m-d'), 'userid' => $request->post('uid')])->get('rank')[0]['rank'] : 0;
+        $detail['todayCount'] = DailySign::where(['date' => date('Y-m-d')])->count();
+        $detail['myCount'] = DailySign::where(['userid' => $request->post('uid')])->count();
+        return $detail;
+    }
+
+    public function TodayRank()
     {
         $rlist = [];
         foreach (DailySign::where(['date' => date('Y-m-d')])->get() as $item) {
@@ -63,7 +73,7 @@ class SignController extends Controller
         return $rlist;
     }
 
-    public function SignDetial(Request $request)
+    public function SignHistory(Request $request)
     {
         $mlist = [];
         foreach (DailySign::where(['platform' => $request->get('plat'), 'userid' => $request->get('uid')])->get() as $item) {
@@ -84,6 +94,7 @@ class SignController extends Controller
         if (empty($this->plat)) {
             return false;
         }
+
         return true;
     }
 
@@ -101,4 +112,6 @@ class SignController extends Controller
         DailySign::create($item);
         return ['打卡成功', $item['rank']];
     }
+
+
 }
