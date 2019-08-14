@@ -51,9 +51,9 @@ class SignController extends Controller
     {
         $detail = [];
         $detail['isSigned'] = DailySign::where(['date' => date('Y-m-d'), 'userid' => $request->post('uid')])->count() == 0 ? false : true;
-        $detail['myRank'] = $detail['isSigned'] ? DailySign::where(['date' => date('Y-m-d'), 'userid' => $request->post('uid')])->get('rank')[0]['rank'] : 0;
+        $detail['todayRank'] = $detail['isSigned'] ? DailySign::where(['date' => date('Y-m-d'), 'userid' => $request->post('uid')])->get('rank')[0]['rank'] : 0;
         $detail['todayCount'] = DailySign::where(['date' => date('Y-m-d')])->count();
-        $detail['myCount'] = DailySign::where(['userid' => $request->post('uid')])->count();
+        $detail['signCount'] = DailySign::where(['userid' => $request->post('uid')])->count();
         return $detail;
     }
 
@@ -65,12 +65,24 @@ class SignController extends Controller
                 'name' => empty($item['name']) ? 'unknown' : $item['name'],
                 'rank' => $item['rank'],
                 'avatar' => $item['avatar'],
-                'plat' => $item['platform'],
+                'plat' => $this->PlatRealName($item['platform']),
                 'date' => $item['date'],
                 'time' => $item['time']
             ];
         }
         return $rlist;
+    }
+
+    private function PlatRealName($plat = null)
+    {
+        switch ($plat) {
+            case 'qqapp':
+                return 'QQ小程序';
+            case 'wxapp':
+                return '微信小程序';
+            default:
+                return null;
+        }
     }
 
     public function SignHistory(Request $request)

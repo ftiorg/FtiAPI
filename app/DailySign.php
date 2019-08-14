@@ -12,6 +12,7 @@ class DailySign extends Model
         'platform',
         'date',
         'time',
-        'rank'
+        'rank',
+        'avatar'
     ];
 }
