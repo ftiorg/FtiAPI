@@ -15,7 +15,6 @@
     "barryvdh/laravel-ide-helper": "^2.6",
     "dingo/api": "^2",
     "doctrine/dbal": "~2.3",
-    "encore/laravel-admin": "^1.6",
     "fideloper/proxy": "^4.0",
     "guzzlehttp/guzzle": "~6.0",
     "laravel/framework": "5.8.*",

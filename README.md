@@ -1,9 +1,18 @@
-# ISDUT API TEST
-未来科技研究所官方API测试
-## 使用说明0 
+# FtiAPI
+A Restful API of Future Technology Institute
 
-## API列表
-暂无
+## API VERSION
+v1
 
-## 协议
-MIT
+## API DOC
+[api.isdut.cn/doc](https://api.isdut.cn/doc)
+
+## API LIST
+| API | GROUP | URL | METHOD | PARAM |
+| ---- | ---- | ---- | ---- | ---- |
+| wordlist | study | /study/word | GET | ?n=number |
+| getip | tools | /tools/ip | GET |  |
+|...|
+
+## LICENSE
+GPL v3
